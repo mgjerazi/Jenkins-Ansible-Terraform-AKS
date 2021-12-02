@@ -1,0 +1,38 @@
+---
+- name: Import AZ CLI Key
+  rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: Add Azure RPM Repo
+  yum_repository:
+    name: azure-cli
+    description: Azure CLI
+    baseurl: https://packages.microsoft.com/yumrepos/azure-cli
+    gpgcheck: true
+    enabled: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: Install Azure Cli
+  yum:
+    name: azure-cli
+    state: present
+
+- name: Add Kubernetes RPM Repo
+  yum_repository:
+    name: kubernetes
+    description: Kubernetes
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    gpgcheck: true
+    enabled: yes
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    repo_gpgcheck: yes
+
+- name: Install Kubectl
+  yum:
+    name: kubectl
+    state: present
+
+- name: Configure user access
+  shell: chmod 777 /var/lib/jenkins/;
+    chmod 777 /var/lib/jenkins/config

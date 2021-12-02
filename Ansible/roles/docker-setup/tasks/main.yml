@@ -1,0 +1,23 @@
+---
+- name: Install Yum-utils
+  yum:
+    name: yum-utils
+    state: present
+
+- name: Add Docker repo
+  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+- name: Install Docker
+  shell: yum install docker-ce docker-ce-cli containerd.io -y
+
+- name: Start Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Fix Docker permissions
+  shell: chmod 666 /var/run/docker.sock
+
+- name: Configure user access
+  shell: usermod -aG docker jenkins

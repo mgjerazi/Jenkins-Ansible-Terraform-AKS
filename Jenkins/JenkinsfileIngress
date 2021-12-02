@@ -1,0 +1,24 @@
+pipeline {
+
+  agent any
+  stages {
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/mgjerazi/AKS_Docker_Terraform_Ansible_AzureDevOpsPipelines.git'
+      }
+    }
+    stage('Deploy Helm and Ingress to AKS-Test') {
+          steps{
+              withCredentials([usernamePassword(credentialsId: 'AZURE', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh "az login -u ${USERNAME} -p ${PASSWORD}"
+                sh "az aks get-credentials --resource-group merkato_rg --name k8s-quiz-test"
+                sh "/usr/local/bin/helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx"
+                sh "/usr/local/bin/helm repo update"
+                sh "/usr/local/bin/kubectl apply -f ingress.yaml"
+
+
+       )}
+              }
+           }
+        }
+}

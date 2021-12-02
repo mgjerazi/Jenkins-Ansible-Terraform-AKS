@@ -1,0 +1,9 @@
+kubectl get node --kubeconfig kubeconfig
+
+kubectl apply -f AKS/backend-deployment.yaml --namespace quiz --kubeconfig config-quiz-test
+kubectl apply -f AKS/frontend-deployment.yaml --namespace quiz --kubeconfig config-quiz-test
+kubectl apply -f AKS/ingress.yml --namespace quiz --kubeconfig config-quiz-test
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx --kubeconfig config-quiz-test
+helm repo update --kubeconfig config-quiz-test
+helm install ingress-nginx ingress-nginx/ingress-nginx --kubeconfig config-quiz-test

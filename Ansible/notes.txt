@@ -1,0 +1,17 @@
+ansible-playbook --vault-id jenkins@.vault/jenkins-pw sites.yml
+ansible-playbook site.yml -K
+
+
+ssh-keygen -t rsa
+ssh-copy-id -i ~/.ssh/merkato adminuser@20.107.217.246
+
+Testing
+ansible all -m ping -K
+
+mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys
+chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+
+ansible all --key-file ~/.ssh/ansible -i hosts -m ping
+
+ansible --list-host all
+ansible all -m ping

@@ -1,0 +1,20 @@
+---
+- name: Docker Setup
+  hosts: webservers
+  become: true
+  roles:
+    - docker-setup
+
+- name: Jenkins Setup
+  hosts: webservers
+  become: true
+  roles:
+    - jenkins-setup
+
+- name: Kubernetes Setup
+  hosts: webservers
+  become: true
+  #  gather_facts: no
+  roles:
+    - kubernetes-setup
+
