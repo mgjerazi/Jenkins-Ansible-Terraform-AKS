@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/mgjerazi/AKS_Docker_Terraform_Ansible_AzureDevOpsPipelines.git'
+        git 'https://github.com/mgjerazi/Jenkins-Ansible-Terraform-AKS.git'
       }
     }
     stage('Deploy Helm and Ingress to AKS-Test') {
