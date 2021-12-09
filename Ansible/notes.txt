@@ -1,4 +1,6 @@
-ansible-playbook --vault-id jenkins@.vault/jenkins-pw sites.yml
+Run playbook
+ansible-playbook --vault-id jenkins@.vault/jenkins-pw jenkins.yml
+or
 ansible-playbook site.yml -K
 
 
